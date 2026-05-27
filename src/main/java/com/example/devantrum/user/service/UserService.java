@@ -1,6 +1,5 @@
 package com.example.devantrum.user.service;
 
-import com.example.devantrum.user.controller.UserController;
 import com.example.devantrum.user.entity.User;
 import com.example.devantrum.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -32,5 +31,10 @@ public class UserService {
 
     public User updateUser(User newUser) {
         return userRepository.save(newUser);
+    }
+
+    public void deleteUser(Long id) {
+        Optional<User> user = getUserById(id);
+        userRepository.delete(user.get());
     }
 }

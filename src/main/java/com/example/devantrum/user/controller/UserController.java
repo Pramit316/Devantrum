@@ -22,7 +22,7 @@ public class UserController {
         return userService.getAllUser();
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public User  addUser(@RequestBody User user) {
         return userService.addUser(user);
     }
@@ -35,5 +35,10 @@ public class UserController {
     @PutMapping("update/{id}")
     public User updateUser(@RequestBody User user){
         return userService.updateUser(user);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public void deleteUser(Long id){
+        userService.deleteUser(id);
     }
 }
