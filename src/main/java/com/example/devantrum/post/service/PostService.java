@@ -6,6 +6,7 @@ import com.example.devantrum.user.entity.User;
 import com.example.devantrum.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,5 +35,17 @@ public class PostService {
     public void deletePost(Long id) {
         Post post = getPostById(id);
         postRepository.delete(post);
+    }
+
+    public Post updatePost(Post post, Long id) {
+        Post existingPost = getPostById(id);
+
+        existingPost.setShipped(post.getShipped());
+        existingPost.setBuilding(post.getBuilding());
+        existingPost.setBlocker(post.getBlocker());
+        existingPost.setVisibility(post.getVisibility());
+        existingPost.setUpdatedAt(LocalDateTime.now());
+
+        return postRepository.save(existingPost);
     }
 }

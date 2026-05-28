@@ -32,6 +32,11 @@ public class PostController {
         return postService.getAllPost();
     }
 
+    @PutMapping("/{id}")
+    public Post updatePost(@RequestBody Post post, @PathVariable Long id){
+        return postService.updatePost(post, id);
+    }
+
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id){
         postService.deletePost(id);
