@@ -2,6 +2,8 @@ package com.example.devantrum.post.controller;
 
 import com.example.devantrum.post.entity.Post;
 import com.example.devantrum.post.service.PostService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,27 +20,28 @@ public class PostController {
     }
 
     @PostMapping
-    public Post addPost(@RequestBody Post post){
-        return postService.addPost(post);
+    public ResponseEntity<Post> addPost(@RequestBody Post post){
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.addPost(post));
     }
 
     @GetMapping("/{id}")
-    public Post getPostById(@PathVariable Long id){
-        return postService.getPostById(id);
+    public ResponseEntity<Post> getPostById(@PathVariable Long id){
+        return ResponseEntity.ok(postService.getPostById(id));
     }
 
     @GetMapping
-    public List<Post> getAllPost(){
-        return postService.getAllPost();
+    public ResponseEntity<List<Post>> getAllPost(){
+        return ResponseEntity.ok(postService.getAllPost());
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@RequestBody Post post, @PathVariable Long id){
-        return postService.updatePost(post, id);
+    public ResponseEntity<Post> updatePost(@RequestBody Post post, @PathVariable Long id){
+        return ResponseEntity.ok(postService.updatePost(post, id));
     }
 
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id){
+    public ResponseEntity<Void> deletePost(@PathVariable Long id){
         postService.deletePost(id);
+        return  ResponseEntity.noContent().build();
     }
 }
