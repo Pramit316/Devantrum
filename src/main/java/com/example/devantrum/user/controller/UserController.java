@@ -2,6 +2,8 @@ package com.example.devantrum.user.controller;
 
 import com.example.devantrum.user.entity.User;
 import com.example.devantrum.user.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +20,28 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public List<User> getAllUser(){
-        return userService.getAllUser();
+    public ResponseEntity<List<User>> getAllUser(){
+        return ResponseEntity.ok(userService.getAllUser());
     }
 
     @PostMapping("")
-    public User  addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(user));
     }
 
     @GetMapping("get/{id}")
-    public Optional<User> getUserById(@PathVariable Long id){
-        return  userService.getUserById(id);
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("update/{id}")
-    public User updateUser(@RequestBody User user){
-        return userService.updateUser(user);
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        return ResponseEntity.ok(userService.updateUser(user));
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteUser(Long id){
+    public ResponseEntity<Void> deleteUser(Long id){
         userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
